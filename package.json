@@ -1,0 +1,19 @@
+{
+  "name": "remindify",
+  "version": "1.0.0",
+  "description": "A to-do list app that helps you organize your tasks and streamline your workflow",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hellsontime/remindify.git"
+  },
+  "author": "Raman Kanapeshka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hellsontime/remindify/issues"
+  },
+  "homepage": "https://github.com/hellsontime/remindify#readme"
+}
