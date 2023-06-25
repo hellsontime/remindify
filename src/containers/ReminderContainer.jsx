@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function AuthorizationContainer({ children }) {
   return (
     <BaseContainer>
-      <div className="auth__wrapper">
+      <div className="reminder__wrapper">
         {children}
         <div className="bgdrop1"></div>
         <div className="bgdrop2"></div>

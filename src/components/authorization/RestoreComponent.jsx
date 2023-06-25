@@ -1,48 +1,72 @@
 import AuthorizationContainer from '../../containers/AuthorizationContainer';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useRef, useState } from 'react';
 
-function RegisterComponent() {
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+function RestoreComponent() {
+  const [confirmation, setConfirmation] = useState(true);
+  const [confirmationCode, setConfirmationCode] = useState(['', '', '', '', '']);
+  const codeRefs = useRef([]);
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handleClick = () => {
+    setConfirmation(!confirmation);
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleConfirmationCodeChange = (index, event) => {
+    const code = event.target.value.replace(/\D/, ''); // Remove non-digit characters
+    const updatedCode = [...confirmationCode];
+    updatedCode[index] = code;
+    setConfirmationCode(updatedCode);
+
+    if (
+      event.target.value === '' &&
+      event.nativeEvent.inputType === 'deleteContentBackward' &&
+      index > 0
+    ) {
+      // If the input value is empty and the user pressed the backspace key, focus the previous input field
+      codeRefs.current[index - 1].focus();
+    } else if (code.length === 0 && index > 0) {
+      // If the current code is empty and there is a previous input field, focus it
+      codeRefs.current[index - 1].focus();
+    } else if (code.length > 0 && index < codeRefs.current.length - 1) {
+      // If the current code is not empty and there is a next input field, focus it
+      codeRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent form submission
+    // Handle form submission logic here, if needed
   };
 
   return (
     <AuthorizationContainer>
-      <form>
-        <input type="text" placeholder="Your Name" className="auth__row" />
-        <input type="email" placeholder="E-mail" className="auth__row" />
-
-        <div className="auth__password-wrapper">
-          <input
-            placeholder="Password"
-            className="auth__row auth__password"
-            type={showPassword ? 'text' : 'password'}
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <div onClick={togglePasswordVisibility}>
-            {showPassword ? (
-              <FontAwesomeIcon icon={faEye} className="password_eye" />
-            ) : (
-              <FontAwesomeIcon icon={faEyeSlash} className="password_eye" />
-            )}
+      <form onSubmit={handleSubmit}>
+        {confirmation ? (
+          <input type="email" placeholder="E-mail" className="auth__row" />
+        ) : (
+          <div className="confirmation-code">
+            {confirmationCode.map((code, index) => (
+              <input
+                type="text"
+                className="auth__row"
+                maxLength="1"
+                value={code}
+                onChange={(event) => handleConfirmationCodeChange(index, event)}
+                ref={(ref) => (codeRefs.current[index] = ref)}
+                key={index}
+              />
+            ))}
           </div>
-        </div>
+        )}
 
-        <input type="submit" className="auth__row auth__submit" value="Register" />
+        <input
+          type="submit"
+          className="auth__row auth__submit"
+          value="Reset Password"
+          onClick={handleClick}
+        />
         <div className="auth__links">
           <div>
-            Already have an account? <a href="./login">Login</a>
+            Back to <a href="./login">Sign In</a>
           </div>
         </div>
       </form>
@@ -50,4 +74,4 @@ function RegisterComponent() {
   );
 }
 
-export default RegisterComponent;
+export default RestoreComponent;

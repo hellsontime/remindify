@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 
-function TodoPageContainer({ children }) {
-  return <div className="container">{children}</div>;
+function BaseContainer({ children }) {
+  return (
+    <div className="container">
+      <div className="container-inner">{children}</div>
+    </div>
+  );
 }
 
-TodoPageContainer.propTypes = {
+BaseContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export default TodoPageContainer;
+export default BaseContainer;
