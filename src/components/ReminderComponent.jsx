@@ -32,10 +32,12 @@ function ReminderComponent() {
           Remindi<span>fy</span>
         </div>
         <div className="header__buttons">
-          <div className="btn__notifications notifications">
+          <div className="btn__notifications">
             <FontAwesomeIcon icon={faBell} />
-            <div className="notifications__count">3</div>
-            <div className="notifications__triangle"></div>
+            {notifications.length > 0 ? (
+              <div className="notifications__count">{notifications.length}</div>
+            ) : null}
+
             <NotificationsComponent notifications={notifications} />
           </div>
           <div className="btn__menu">
