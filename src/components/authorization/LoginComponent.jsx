@@ -2,6 +2,9 @@ import AuthorizationContainer from '../../containers/AuthorizationContainer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { REGISTER_PAGE_ROUTE, RESTORE_PAGE_ROUTE } from '../../routes/PageRoutes';
+
 function LoginComponent() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -42,10 +45,10 @@ function LoginComponent() {
         <input type="submit" className="auth__row auth__submit" value="Sign In" />
         <div className="auth__links">
           <div>
-            Dont have an account <a href="./register">Sign Up</a>
+            Dont have an account <Link to={REGISTER_PAGE_ROUTE}>Sign Up</Link>
           </div>
           <div>
-            Forgot your <a href="./restore"> Password</a>?
+            Forgot your <Link to={RESTORE_PAGE_ROUTE}> Password</Link>?
           </div>
         </div>
       </form>

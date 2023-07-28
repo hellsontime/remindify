@@ -169,7 +169,13 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 25px;
   border-radius: $baseRa;
   width: 568px;
+  height: 65vh;
   font-size: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
   .reminder__header {
     display: flex;
     justify-content: space-between;
@@ -195,6 +201,73 @@ h1, h2, h3, h4, h5, h6, p {
           top: 3px;
           right: -5px;
         }
+
+
+
+        .notifications {
+          position: relative;
+
+          &__triangle {
+            margin: 0;
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 0px;
+            height: 0px;
+            border-style: solid;
+            border-width: 0 7.5px 10px 7.5px;
+            border-color: transparent transparent $begieLight transparent;
+            z-index: 151;
+          }
+
+          &__wrapper {
+            position: absolute;
+            background: $begieLight;
+            border-radius: 4px;
+            top: 40px;
+            right: 50%;
+            transform: translate(50%, 0);
+            margin: 0;
+            width: 200px;
+            padding: 15px;
+            box-shadow: 0 4px 10px 5px rgba(0,0,0,0.1);
+            z-index: 150;
+
+            ul {
+              margin: 0;
+              padding: 0;
+              list-style-type: none;
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+
+              li {
+                background: $begie;
+                padding: 6px 10px;
+                border-radius: 4px;
+                font-size: 12px;
+                color: black;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+              }
+            }
+          }
+
+          &__title {
+            font-size: 13px;
+          }
+
+          &__description {
+            font-size: 11px;
+          }
+
+          &__date {
+            font-size: 12px;
+            color: #4D4D4DFF;
+          }
+        }
       }
       div {
         margin-left: 18px;
@@ -213,10 +286,23 @@ h1, h2, h3, h4, h5, h6, p {
     }
   }
   .reminder__calendar {
-    margin: 30px 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: flex;
+    gap: 15px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     .calendar__item {
-      width: 100%;
+      display: inline-block;
+
       .item__wrapper {
+        width: 80px;
         cursor: pointer;
         background: $begie;
         border: 2px solid $begie;
@@ -269,39 +355,110 @@ h1, h2, h3, h4, h5, h6, p {
       }
     }
   }
-  .reminder__tasks {
-    .tasks__item {
-      padding: 15px 10px;
-      background: $begieLight;
-      border-radius: $baseRa;
-      margin-bottom: 10px;
+
+  .reminder__tasks-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: auto;
+    max-height: 100%;
+    padding-right: 8px;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      padding-left: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: $begieLightAlpha25;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: $begie;
+      border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: $begieDark;
+    }
+
+    .reminder__tasks {
       display: flex;
-      .item__checkbox {
-        cursor: pointer;
-        height: 20px;
-        width: 20px;
-        border-radius: 100px;
-        border: 3px solid $orangeLight;
-        margin-right: 10px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+
+      .tasks__item {
+        padding: 15px 10px;
+        background: $begieLight;
+        border-radius: $baseRa;
+        margin-bottom: 10px;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        color: black;
-        font-size: 11px;
-        svg {
-          display: none;
-        }
-        &.checked {
-          background: $orange;
-          border: 3px solid $orange;
-          color: white;
+        width: 100%;
+
+        .item__checkbox {
+          cursor: pointer;
+          height: 20px;
+          width: 20px;
+          border-radius: 100px;
+          border: 3px solid $orangeLight;
+          margin-right: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: black;
+          font-size: 11px;
           svg {
-            display: block;
+            display: none;
+          }
+          &.checked {
+            background: $orange;
+            border: 3px solid $orange;
+            color: white;
+            svg {
+              display: block;
+            }
           }
         }
       }
     }
+  }
 
+  .empty-tasks {
+    position: relative;
+    display: flex;
+    gap: 15px;
+
+    span {
+      //opacity: 0.7;
+      height: 60px;
+      width: 60px;
+
+      #circle {
+        fill: $brown;
+      }
+      //#eyes,
+      //#brows {
+      //  fill: $orangeLight;
+      //}
+      #hand {
+        fill: $orangeLight;
+      }
+    }
+
+    p {
+      color: black;
+      opacity: 0.6;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 5;
+      width: 200px;
+    }
   }
 }
 

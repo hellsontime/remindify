@@ -2,6 +2,8 @@ import AuthorizationContainer from '../../containers/AuthorizationContainer';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { LOGIN_PAGE_ROUTE } from '../../routes/PageRoutes';
 
 function RegisterComponent() {
   const [password, setPassword] = useState('');
@@ -42,7 +44,7 @@ function RegisterComponent() {
         <input type="submit" className="auth__row auth__submit" value="Sign Up" />
         <div className="auth__links">
           <div>
-            Already have an account? <a href="./login">Login</a>
+            Already have an account? <Link to={LOGIN_PAGE_ROUTE}>Login</Link>
           </div>
         </div>
       </form>

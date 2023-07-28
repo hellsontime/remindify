@@ -9,7 +9,7 @@ for (let day = currentDate.getDate(); day <= nextMonth; day++) {
   const hasTasks = Math.random() < 0.5; // Randomly determine if the day will have tasks or not
 
   if (hasTasks) {
-    const numTasks = Math.floor(Math.random() * 5) + 3; // Random number of tasks between 3 and 7
+    const numTasks = Math.floor(Math.random() * 5) + 20; // Random number of tasks between 3 and 7
 
     for (let i = 1; i <= numTasks; i++) {
       tasks.push({

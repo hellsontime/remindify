@@ -1,5 +1,7 @@
 import AuthorizationContainer from '../../containers/AuthorizationContainer';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { LOGIN_PAGE_ROUTE } from '../../routes/PageRoutes';
 
 function RestoreComponent() {
   const [confirmation, setConfirmation] = useState(true);
@@ -11,7 +13,7 @@ function RestoreComponent() {
   };
 
   const handleConfirmationCodeChange = (index, event) => {
-    const code = event.target.value.replace(/\D/, ''); // Remove non-digit characters
+    const code = event.target.value.replace(/\D/, '');
     const updatedCode = [...confirmationCode];
     updatedCode[index] = code;
     setConfirmationCode(updatedCode);
@@ -21,20 +23,16 @@ function RestoreComponent() {
       event.nativeEvent.inputType === 'deleteContentBackward' &&
       index > 0
     ) {
-      // If the input value is empty and the user pressed the backspace key, focus the previous input field
       codeRefs.current[index - 1].focus();
     } else if (code.length === 0 && index > 0) {
-      // If the current code is empty and there is a previous input field, focus it
       codeRefs.current[index - 1].focus();
     } else if (code.length > 0 && index < codeRefs.current.length - 1) {
-      // If the current code is not empty and there is a next input field, focus it
       codeRefs.current[index + 1].focus();
     }
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent form submission
-    // Handle form submission logic here, if needed
+    event.preventDefault();
   };
 
   return (
@@ -66,7 +64,7 @@ function RestoreComponent() {
         />
         <div className="auth__links">
           <div>
-            Back to <a href="./login">Sign In</a>
+            Back to <Link to={LOGIN_PAGE_ROUTE}>Sign In</Link>
           </div>
         </div>
       </form>
