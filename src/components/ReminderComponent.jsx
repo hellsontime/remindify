@@ -1,24 +1,32 @@
 import ReminderContainer from '../containers/ReminderContainer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBell, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCheck, faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import CalendarComponent from './CalendarComponent';
 import testData from '../constants/testdata';
 import EmptyTasksComponent from './EmptyTasksComponent';
 import NotificationsComponent from './NotificationsComponent';
 import notifications from '../constants/notifications';
+import UserMenuComponent from './UserMenuComponent';
 
 function ReminderComponent() {
   const [currentDay, setCurrentDay] = useState(testData[0]);
 
   const handleDayChange = (data) => {
     setCurrentDay(data);
-    console.log(data);
   };
 
   const handleTaskToggle = (taskIndex) => {
     const updatedTasks = [...currentDay.tasks];
     updatedTasks[taskIndex].done = !updatedTasks[taskIndex].done;
+    setCurrentDay((prevDay) => ({
+      ...prevDay,
+      tasks: updatedTasks
+    }));
+  };
+
+  const handleTaskDelete = (taskIndex) => {
+    const updatedTasks = currentDay.tasks.filter((task, index) => index !== taskIndex);
     setCurrentDay((prevDay) => ({
       ...prevDay,
       tasks: updatedTasks
@@ -40,9 +48,7 @@ function ReminderComponent() {
 
             <NotificationsComponent notifications={notifications} />
           </div>
-          <div className="btn__menu">
-            <FontAwesomeIcon icon={faBars} />
-          </div>
+          <UserMenuComponent />
         </div>
       </div>
 
@@ -58,14 +64,29 @@ function ReminderComponent() {
             <EmptyTasksComponent />
           ) : (
             currentDay.tasks.map((task, index) => (
-              <div
-                onClick={() => handleTaskToggle(index)}
-                className="tasks__item"
-                key={index + '' + task.day}>
-                <div className={task.done ? 'item__checkbox checked' : 'item__checkbox'}>
-                  <FontAwesomeIcon icon={faCheck} />
+              <div className="tasks__item" key={index + '' + task.day}>
+                <div className="item__description">
+                  <div
+                    className={task.done ? 'item__checkbox checked' : 'item__checkbox'}
+                    onClick={() => handleTaskToggle(index)}>
+                    <FontAwesomeIcon icon={faCheck} />
+                  </div>
+                  <div className="item__title">{task.title}</div>
                 </div>
-                <div className="item__title">{task.title}</div>
+                <div className="item__controls">
+                  <div className="button" onClick={() => handleTaskDelete(index)}>
+                    <span className="button__icon">
+                      <FontAwesomeIcon icon={faTrash} />
+                    </span>
+                    <span className="button__tip">Delete</span>
+                  </div>
+                  <div className="button">
+                    <span className="button__icon">
+                      <FontAwesomeIcon icon={faPen} />
+                    </span>
+                    <span className="button__tip">Edit</span>
+                  </div>
+                </div>
               </div>
             ))
           )}

@@ -1,0 +1,83 @@
+
+.user-menu {
+  position: relative;
+
+  &__icon {
+    width: 23px;
+    height: 23px;
+    background: $orangeLight;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      color: $orange;
+      font-size: 12px;
+      line-height: 12px;
+    }
+  }
+
+  &:hover {
+    .dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .dropdown {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 30px;
+    right: 50%;
+    transform: translate(50%, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.3s;
+    transition-delay: 0.15s;
+
+    &__triangle {
+      margin: 0;
+      position: relative;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 7.5px 10px 7.5px;
+      border-color: transparent transparent $begieLight transparent;
+      z-index: 151;
+    }
+
+    &__wrapper {
+      border-radius: 4px;
+      background: $begieLight;
+
+      ul {
+        margin: 0;
+        padding: 10px;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 12px;
+          background: $begie;
+          padding: 6px 10px;
+          border-radius: 4px;
+
+          p {
+
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+
+  }
+}

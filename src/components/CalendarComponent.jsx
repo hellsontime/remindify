@@ -39,7 +39,7 @@ const CalendarComponent = ({ testData, handleDayChange, currentDay }) => {
           className={
             index === 0
               ? 'calendar__item current selected'
-              : currentDay === data
+              : currentDay.day + currentDay.weekday === data.day + data.weekday
               ? 'calendar__item selected'
               : 'calendar__item'
           }
